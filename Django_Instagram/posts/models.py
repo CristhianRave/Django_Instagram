@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
+
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='posts', null=True)
     image = models.ImageField(null=True)
@@ -16,3 +17,5 @@ class Post(models.Model):
 
     def __str__(self):
         return self.quote
+
+

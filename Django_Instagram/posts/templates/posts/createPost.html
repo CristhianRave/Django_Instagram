@@ -3,11 +3,14 @@
 {% block content %}
 {% include 'navbar.html' %}
 
+
 <div class="profile-form-container">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
             {{form.as_p}}
+
+            <input type="hidden" id="user" name="user_id" value="{{user.id}}">
 
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
     </form>

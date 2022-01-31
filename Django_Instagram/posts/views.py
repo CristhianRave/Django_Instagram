@@ -18,10 +18,18 @@ def createPost(request):
 
     form = CreatePostForm()
     if request.method == 'POST':
-        register_form = CreatePostForm(request.POST, request.FILES)
+        form = CreatePostForm(request.POST, request.FILES)
 
-        if register_form.is_valid():
-            register_form.save()
+        if form.is_valid():
+            data_form = form.cleaned_data
+
+            post = Post(
+                user_id=request.user.id,
+                quote=request.POST.get('quote'),
+                image=request.FILES.get('image'),
+            )
+
+            post.save()
 
             return redirect('posts')
 

@@ -6,7 +6,7 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['user','image','quote']
+        fields = ['image','quote']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
