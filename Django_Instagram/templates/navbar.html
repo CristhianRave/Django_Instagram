@@ -13,6 +13,9 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="profile-pic" src="{% static 'images/fondo.jpg' %}" alt="{{user}}">
                     </a>
+                    <div class="text-center">
+                        {{user}}
+                    </div>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="/admin">Admin</a></li>
                         <li><a class="dropdown-item" href="{% url 'createPost' %}">New Post</a></li>

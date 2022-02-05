@@ -9,7 +9,6 @@ class PostAdmin(admin.ModelAdmin):
 
     list_display = (
         'user',
-        'likes',
         'quote',
         'created_at',
         'image_admin',
