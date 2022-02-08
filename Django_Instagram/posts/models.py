@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.safestring import mark_safe
 
 from django.contrib.auth.models import User
+from django.utils.timezone import now
+
 
 # Create your models here.
 
@@ -20,3 +22,15 @@ class Post(models.Model):
         return self.quote
 
 
+class CommentPost(models.Model):
+
+    comment = models.TextField()
+    post = models.ForeignKey(
+        'Post', on_delete=models.CASCADE, blank=True, null=True, related_name='post')
+    created_at = models.DateTimeField(default=now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE ,null=True,blank=True, related_name='commentAuthor')
+    likes = models.ManyToManyField(User, blank=True, related_name='commentLike')
+    dislikes = models.ManyToManyField(User, blank=True, related_name='commentDislike')
+
+    def __str__(self):
+        return self.comment
