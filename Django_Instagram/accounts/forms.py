@@ -8,20 +8,20 @@ from django.contrib.auth.models import User
 
 class RegisterForm(UserCreationForm):
 
-    password1 = forms.CharField(label='Enter password',
-                                widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password',
-                                widget=forms.PasswordInput)
+    password1 = forms.CharField(label = 'Enter password', 
+                                widget = forms.PasswordInput)
+    password2 = forms.CharField(label = 'Confirm password', 
+                                widget = forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name',
+        fields = ['username', 'first_name', 
                   'last_name', 'email', 'password1', 'password2']
 
         help_texts = {
-            'username': None,
-            'password1': None,
-            'password2': None,
+            'username': None, 
+            'password1': None, 
+            'password2': None, 
         }
 
     def __init__(self, *args, **kwargs):

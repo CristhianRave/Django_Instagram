@@ -5,65 +5,10 @@
 {% block content %}
 {% include 'navbar.html' %}
 
-<div class="post-container ">
+
     {% for post in posts %}
-        <div class="post">
-                <div class="post-header d-flex justify-content-between">
-                    <div class="d-flex">
-                        <img class="profile-pic" src="{% static 'images/fondo.jpg' %}">
-                        <h6 class="post-user">{{post.user}}</h6>
-                    </div>
-                    <ul class="navbar-nav justify-content-end">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-h" style="color: gray;"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'editPost' post.pk %}">Edit</a>
-                                <a class="dropdown-item" href="{% url 'deletePost' post.pk %}">Delete</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="post-pic-container">
-                    <img class="post-pic" src="{{post.image.url}}">
-                </div>
-                <div class="post-footer">
-                    <!-- ------------------------------------------------------------ -->
-                    <div class="likes d-flex">
-                        <form method="post" action="{% url 'like' post.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="far fa-heart fa-lg mr-1 mt-1" style="color: green;"></button>
-                            <strong>&nbsp;{{post.likes.all.count}}</strong>
-                        </form>
-                    </div>
-                    <div class="likes d-flex">
-                        <form method="post" action="{% url 'dislike' post.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="far fa-heart fa-lg mr-1 mt-1" style="color: red;"></button>
-                            <strong>&nbsp;{{post.dislikes.all.count}}</strong>
-                        </form>
-                    </div>
-                    <br>
-                    <p class="quote"><strong>{{post.user.username}}</strong> {{post.quote}}</p>
-                    <p>
-                    </p>
-                    <h5 class="card-title">
-                    <a href="{% url 'commentPost' post.pk%}"> Comentar el Post?
-                        </a>
-                    </h5>
-                    {% for c in comments %}
-            
-                        <div class="profile-form-container">
-                            {{c}}
-                        </div>
-                    {% endfor %}
-                    <small class="test-muted">{{post.created_at|date:"M d, Y"}}</small>
-                </div>
-            </div>
-        </a>
+        {% include 'posts/post.html' %}
+        
     {% endfor %}
-</div>
 
 {% endblock %}

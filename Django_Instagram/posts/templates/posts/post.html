@@ -1,0 +1,55 @@
+{% load static %}
+<div class="post-container ">
+    <div class="post">
+        <div class="post-header d-flex justify-content-between">
+            <div class="d-flex">
+                <img class="profile-pic" src="{% static 'images/fondo.jpg' %}">
+                <h6 class="post-user">{{post.user}}</h6>
+            </div>
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h" style="color: gray;"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'editPost' post.pk %}">Edit</a>
+                        <a class="dropdown-item" href="{% url 'deletePost' post.pk %}">Delete</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="post-pic-container">
+            {% if post.image.count == 1 %}
+            {% for img in post.image.all %}
+            <img class="post-pic" src="{{img.image.url}}">
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="post-pic-container-multi">
+            {% if post.image.count > 1 %}
+            {% for img in post.image.all %}
+            <img class="post-pic-multi" src="{{img.image.url}}">
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="post-footer">
+
+            <!-- ------------------------------------------------------------ -->
+            {% include 'posts/likes_dislikes.html' %}            
+            <!-- ------------------------------------------------------------ -->
+            
+            <br>
+            <p class="quote">
+                <strong>{{post.user.username}}</strong> 
+                {{post.quote}}
+            </p>
+            
+            <!-- ------------------------------------------------------------ -->
+            {% include 'posts/viewComments.html' %}            
+            <!-- ------------------------------------------------------------ -->
+
+            <small class="test-muted">{{post.created_at|date:"M d, Y"}}</small>
+        </div>
+    </div>
+</div>

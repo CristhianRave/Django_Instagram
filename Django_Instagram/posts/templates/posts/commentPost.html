@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'navbar.html' %}
-<div class="profile-form-container">
+
+<div class="post-container">
 
     <form method="POST" action="{% url 'commentPost' post.pk %}">
         {% csrf_token %}
 
-        {{form}}
+        {{form.comment}}
         <button type="submit">Comentar</button>
     </form>
 

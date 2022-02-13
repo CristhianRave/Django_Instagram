@@ -1,0 +1,11 @@
+<div class="container ">    
+    
+    {% for c in comments %}
+    
+    <div class="profile-form-container">
+        {{c}}
+        {% include 'posts/likes_dislikes.html' %}
+        {% include 'posts/viewComments.html' %}
+        </div>
+    {% endfor %}
+</div>    

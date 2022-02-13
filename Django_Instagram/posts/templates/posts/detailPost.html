@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+
+{% include 'posts/post.html' %}
+{% include 'posts/commentPost.html' %}
+
+
+{% include 'posts/comments.html' %}
+
+
+{% endblock %}

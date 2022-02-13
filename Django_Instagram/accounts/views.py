@@ -7,13 +7,13 @@ from accounts.forms import RegisterForm
 
 # Create your views here.
 
-def loginUser(request):
+def login_user(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
             return redirect('posts')
@@ -23,7 +23,7 @@ def loginUser(request):
     return render(request, 'home.html')
 
 
-def registerUser(request):
+def register_user(request):
 
     form = RegisterForm()
 
@@ -41,7 +41,7 @@ def registerUser(request):
     })
 
 
-def logoutUser(request):
+def logout_user(request):
 
     logout(request)
 
