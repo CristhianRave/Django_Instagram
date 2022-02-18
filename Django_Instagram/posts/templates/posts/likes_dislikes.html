@@ -1,14 +1,16 @@
-<div class="likes d-flex">
+
     <form method="post" action="{% url 'like' post.pk %}">
         {% csrf_token %}
-        <button type="submit" class="far fa-heart fa-lg mr-1 mt-1" style="color: green;"></button>
-        <strong>&nbsp;{{post.likes.all.count}}</strong>
+
+        <button type="submit"><i class='fa fa-thumbs-o-up'></i></i></button>
+        <strong>{{post.likes.all.count}}&nbsp;</strong>
     </form>
-</div>
-<div class="likes d-flex">
+    
     <form method="post" action="{% url 'dislike' post.pk %}">
         {% csrf_token %}
-        <button type="submit" class="far fa-heart fa-lg mr-1 mt-1" style="color: red;"></button>
-        <strong>&nbsp;{{post.dislikes.all.count}}</strong>
+        &nbsp;
+        <button type="submit" ><i class='fa fa-thumbs-o-down'></i></i></button>
+        <strong>{{post.dislikes.all.count}}</strong>
     </form>
-</div>
+
+

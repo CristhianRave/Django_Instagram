@@ -20,7 +20,7 @@ def posts(request):
 # -----------------------------------------------------------
 
 
-def post_detail(request,pk):
+def post_detail(request, pk):
 
     post = Post.objects.get(pk=pk)
     commentForm = CommentPostForm(request.POST)
@@ -68,11 +68,11 @@ def create_post(request):
 
 def edit_post(request, pk):
 
-    post = Post.objects.get(pk = pk)
-    form = CreatePostForm(instance = post)
+    post = Post.objects.get(pk=pk)
+    form = CreatePostForm(instance=post)
 
     if request.method == 'POST':
-        form = CreatePostForm(request.POST, request.FILES, instance = post)
+        form = CreatePostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
             return redirect('posts')
@@ -87,7 +87,7 @@ def edit_post(request, pk):
 
 def delete_post(request, pk):
 
-    post = Post.objects.get(id = pk)
+    post = Post.objects.get(id=pk)
 
     if request.method == "POST":
         post.delete()
@@ -103,7 +103,7 @@ def delete_post(request, pk):
 
 def like_post(request, pk):
 
-    post = Post.objects.get(id = pk)
+    post = Post.objects.get(id=pk)
 
     is_dislike = False
     for dislike in post.dislikes.all():
@@ -128,13 +128,13 @@ def like_post(request, pk):
 
     # Redirigir a la pagina actual
     return redirect(request.META.get('HTTP_REFERER', '/'))
-    
-    
+
+
 # -----------------------------------------------------------
-    
-    
+
+
 def dislike_post(request, pk):
-    post = Post.objects.get(id = pk)
+    post = Post.objects.get(id=pk)
 
     is_like = False
     for like in post.likes.all():
@@ -157,7 +157,6 @@ def dislike_post(request, pk):
     if is_dislike:
         post.dislikes.remove(request.user)
 
-
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 # -----------------------------------------------------------
@@ -165,27 +164,27 @@ def dislike_post(request, pk):
 
 def comment_post(request, pk):
 
-    post = Post.objects.get(pk = pk)
+    post = Post.objects.get(pk=pk)
     commentForm = CommentPostForm()
-    comments = CommentPost.objects.filter(post = post)
+    comments = CommentPost.objects.filter(post=post)
 
     if request.method == 'POST':
         commentForm = CommentPostForm(
             request.POST)
         if commentForm.is_valid():
             comment = CommentPost(
-                comment = request.POST.get('comment'), 
+                comment=request.POST.get('comment'),
             )
             comment.save(False)
             comment.author_id = request.user.id
             comment.post = post
             comment.save()
 
-        return redirect('../post/'+ str(post.pk))
+        return redirect('../post/' + str(post.pk))
 
     return render(request, 'posts/commentPost.html', {
-        'post': post, 
-        'form': commentForm, 
+        'post': post,
+        'form': commentForm,
         'comments': comments
 
     })
@@ -193,28 +192,11 @@ def comment_post(request, pk):
 
 # -----------------------------------------------------------
 
-# def reply_comment(request,pk):
-#     post = Post.objects.get(pk=pk)
-#     parent_comment = Post.objects.get(pk=pk)
-#     form = commentForm = CommentPostForm(request.POST)
-
-#     if commentForm.is_valid():
-#         comment = form.save(commit=False)
-#         comment.author_id = request.user.id
-#         comment.post = post
-#         comment.parent = parent_comment
-#         comment.save()
-
-#         return redirect('../post/'+ str(post.pk))
-
-
-
-# -----------------------------------------------------------
 
 def like_comment(request, pk):
 
-    comment = CommentPost.objects.get(id=pk)
-
+    comment = CommentPost.objects.get(pk=pk)
+ 
     is_dislike = False
     for dislike in comment.dislikes.all():
         if dislike == request.user:
@@ -244,7 +226,7 @@ def like_comment(request, pk):
 
 
 def dislike_comment(request, pk):
-    comment = CommentPost.objects.get(id=pk)
+    comment = CommentPost.objects.get(pk=pk)
 
     is_like = False
     for like in comment.likes.all():
@@ -267,4 +249,22 @@ def dislike_comment(request, pk):
     if is_dislike:
         comment.dislikes.remove(request.user)
 
+
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+# def reply_comment(request,pk):
+#     post = Post.objects.get(pk=pk)
+#     parent_comment = Post.objects.get(pk=pk)
+#     form = commentForm = CommentPostForm(request.POST)
+
+#     if commentForm.is_valid():
+#         comment = form.save(commit=False)
+#         comment.author_id = request.user.id
+#         comment.post = post
+#         comment.parent = parent_comment
+#         comment.save()
+
+#         return redirect('../post/'+ str(post.pk))
+
+
+# -----------------------------------------------------------
