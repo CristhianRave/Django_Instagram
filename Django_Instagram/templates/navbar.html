@@ -7,23 +7,24 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        {% if user.is_authenticated %}
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav w-100 justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="profile-pic" src="{% static 'images/fondo.jpg' %}" alt="{{user}}">
-                    </a>
+                <li class="nav-item dropdown me-5">
+                    <img class="profile-pic" src="{% static 'images/fondo.jpg' %}" alt="{{user}}">
                     <div class="text-center">
                         {{user}}
                     </div>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="/admin">Admin</a></li>
-                        <li><a class="dropdown-item" href="{% url 'createPost' %}">New Post</a></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                    </ul>
                 </li>
             </ul>
         </div>
+        {% else %}
+            <div class="form-group m-3">
+                <a class="btn btn-primary mt-2 btn float-end  w-100" href="{% url 'login' %}">
+                    Login
+                </a>
+            </div>
+        {% endif %}
     </div>
 </nav>
 

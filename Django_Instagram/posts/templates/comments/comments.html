@@ -1,0 +1,56 @@
+{% load static %}
+<div class="container mt-5 mb-5">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-5">
+                {% for c in comments %}
+            <div class="">
+                <div class="d-flex justify-content-between p-2 px-3">
+                    <div class="d-flex flex-row align-items-center mb-5">
+                        <img class="profile-pic" src="{% static 'images/fondo.jpg' %}" width="50" class="rounded-circle">
+                        <div class="d-flex flex-column ml-2">
+                            <span class="font-weight-bold ">{{c.author}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row mt-1 ellipsis align-items-center mb-5">
+                        <small class="mr-2">{{c.created_at|date:"M d, Y"}}&nbsp;</small>
+                        <!-- 
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    &nbsp;<i class="fas fa-ellipsis-h" style="color: gray;"></i>
+                                </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                </div>
+                            </li>
+                        </ul>
+                    -->
+                    </div>
+                </div>
+                    <div class="card p-3">
+                        {{c}}
+                    </div>
+                    <div class="d-flex mt-3">
+                        <form method="post" action="{% url 'likeComment' c.pk %}">
+                            {% csrf_token %}
+                            <button type="submit"><i class='fa fa-thumbs-o-up'></i></button>
+                            
+                            <!-- Contamos los likes del comentario -->
+                            <strong>{{c.likes.all.count}}&nbsp;</strong>
+                        </form>                        
+                        <form method="post" action="{% url 'dislikeComment' c.pk %}">
+                            {% csrf_token %}
+                            &nbsp;
+                            <button type="submit"><i class='fa fa-thumbs-o-down'></i></button>
+                            <strong>{{c.dislikes.all.count}}&nbsp;</strong>
+                        </form>
+                    </div>
+                    <br><hr><hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>    

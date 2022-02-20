@@ -12,11 +12,13 @@ class RegisterForm(UserCreationForm):
                                 widget = forms.PasswordInput)
     password2 = forms.CharField(label = 'Confirm password', 
                                 widget = forms.PasswordInput)
+                                
 
     class Meta:
         model = User
         fields = ['username', 'first_name', 
-                  'last_name', 'email', 'password1', 'password2']
+                  'last_name', 'email', 
+                  'password1', 'password2']
 
         help_texts = {
             'username': None, 

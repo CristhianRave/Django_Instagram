@@ -4,7 +4,71 @@
 {% block content %}
 
 {% include 'navbar.html' %}
-{% include 'posts/post.html' %}
-{% include 'posts/comments.html' %}
+{% load static %}
+<div class="container mt-5 mb-5">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="d-flex justify-content-between p-2 px-3">
+                    <div class="d-flex flex-row align-items-center">
+                        <img class="profile-pic" src="{% static 'images/fondo.jpg' %}" width="50"
+                            class="rounded-circle">
+                        <div class="d-flex flex-column ml-2">
+                            <span class="font-weight-bold">{{post.user}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row mt-1 ellipsis align-items-center">
+                        <small class="mr-2">{{post.created_at|date:"M d, Y"}}&nbsp;</small>
+                        {% if post.user == user %}
+                            <ul class="navbar-nav justify-content-end">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        &nbsp;<i class="fas fa-ellipsis-h" style="color: gray;"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'editPost' post.pk %}">Edit</a>
+                                        <a class="dropdown-item" href="{% url 'deletePost' post.pk %}">Delete</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="post-pic-container">
+                    {% if post.image.count == 1 %}
+                    {% for img in post.image.all %}
+                    <img class="post-pic" src="{{img.image.url}}">
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="post-pic-container-multi">
+                    {% if post.image.count > 1 %}
+                    {% for img in post.image.all %}
+                    <img class="post-pic-multi" src="{{img.image.url}}">
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="p-2">
+                    <p class="text-justify">{{post.quote}}</p>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-row icons d-flex align-items-center">
+                            {% include 'comments/likes_dislikes.html' %}
+                        </div>
+                    <div class="comment-input mt-3">
+                        <form method="POST" action="{% url 'commentPost' post.pk %}">
+                            {% csrf_token %}
+                            {{form.comment}}
+                            <button class=" mt-2 btn-primary" type="submit">Comentar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% include 'comments/comments.html' %}
 
 {% endblock %}

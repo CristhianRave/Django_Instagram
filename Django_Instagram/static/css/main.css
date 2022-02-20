@@ -1,6 +1,5 @@
 body {
   background-color: #f1faee;
-
 }
 
 .main-nav {
@@ -177,6 +176,11 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   border-top: 1px solid lightgrey;
+}
+
+.comment-input {
+  width: 60% !important;
+  margin-right: 20px;
 }
 
 @media (max-width: 576px) { 

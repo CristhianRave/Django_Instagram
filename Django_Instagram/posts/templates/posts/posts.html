@@ -1,12 +1,14 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
+    {% if user.is_authenticated %}
+        {% include 'menu-left.html' %} 
+    {% endif %}
+
     {% for post in posts %}
         {% include 'posts/post.html' %}
-        
     {% endfor %}
 
 {% endblock %}

@@ -81,28 +81,28 @@ class CommentPost(models.Model):
         related_name='commentDislike'
         )
 
-    parent = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE, 
-        blank=True,
-        null=True,
-        related_name='+'
-    )
+    # parent = models.ForeignKey(
+    #     'self',
+    #     on_delete=models.CASCADE, 
+    #     blank=True,
+    #     null=True,
+    #     related_name='+'
+    # )
 
     def __str__(self):
         return self.comment
 
     # retornar todos los comentarios dentro de comentarios
-    @property
-    def children (self):
-        return commentPost.objects.filter(parent=self.parent).order_by('-created_at').all()
+    # @property
+    # def children (self):
+    #     return commentPost.objects.filter(parent=self.parent).order_by('-created_at').all()
 
-    #Saber si un comentario tiene comentarios dentro       
-    @property
-    def is_parent(self):
-        if self.parent is None:
-            return True
-        return False
+    # #Saber si un comentario tiene comentarios dentro       
+    # @property
+    # def is_parent(self):
+    #     if self.parent is None:
+    #         return True
+    #     return False
 
 
 class Image(models.Model):

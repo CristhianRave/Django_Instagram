@@ -20,7 +20,7 @@ def login_user(request):
         else:
             messages.warning(request, 'No te has identificado')
 
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 
 def register_user(request):
@@ -28,10 +28,17 @@ def register_user(request):
     form = RegisterForm()
 
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(data=request.POST)
 
         if form.is_valid():
             form.save()
+
+            # Logeamos con el usuario registrado
+            user = authenticate(
+                username = form.cleaned_data["username"], 
+                password = form.cleaned_data["password1"])
+            login(request, user)
+
             return redirect('posts')
     else:
         form = RegisterForm()

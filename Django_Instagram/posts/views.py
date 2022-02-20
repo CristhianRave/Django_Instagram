@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from posts.models import Post, CommentPost, Image
 from posts.forms import CreatePostForm, CommentPostForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -19,7 +20,7 @@ def posts(request):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def post_detail(request, pk):
 
     post = Post.objects.get(pk=pk)
@@ -35,7 +36,7 @@ def post_detail(request, pk):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def create_post(request):
 
     form = CreatePostForm()
@@ -65,7 +66,7 @@ def create_post(request):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def edit_post(request, pk):
 
     post = Post.objects.get(pk=pk)
@@ -84,7 +85,7 @@ def edit_post(request, pk):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def delete_post(request, pk):
 
     post = Post.objects.get(id=pk)
@@ -100,7 +101,7 @@ def delete_post(request, pk):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def like_post(request, pk):
 
     post = Post.objects.get(id=pk)
@@ -132,7 +133,7 @@ def like_post(request, pk):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def dislike_post(request, pk):
     post = Post.objects.get(id=pk)
 
@@ -162,6 +163,7 @@ def dislike_post(request, pk):
 # -----------------------------------------------------------
 
 
+@login_required(login_url='/')
 def comment_post(request, pk):
 
     post = Post.objects.get(pk=pk)
@@ -192,7 +194,7 @@ def comment_post(request, pk):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def like_comment(request, pk):
 
     comment = CommentPost.objects.get(pk=pk)
@@ -224,7 +226,7 @@ def like_comment(request, pk):
 
 # -----------------------------------------------------------
 
-
+@login_required(login_url='/')
 def dislike_comment(request, pk):
     comment = CommentPost.objects.get(pk=pk)
 
